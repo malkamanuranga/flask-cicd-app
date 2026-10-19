@@ -35,21 +35,28 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy to Kubernetes') {
             steps {
-                echo '🚀 Deploying new version...'
-                sh """
-                    docker stop ${CONTAINER_NAME} || true
-                    docker rm ${CONTAINER_NAME} || true
-                    docker run -d --name ${CONTAINER_NAME} -p ${APP_PORT}:5000 ${IMAGE_NAME}:${BUILD_NUMBER}
-                """
+                echo '☸️ Deploying to Kubernetes...'
+                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                    sh """
+                        # Update the deployment.yaml with the new build number
+                        sed -i 's|flask-cicd-app:latest|flask-cicd-app:${BUILD_NUMBER}|g' k8s/deployment.yaml
+                        
+                        # Apply the Kubernetes manifests
+                        kubectl apply -f k8s/deployment.yaml -f k8s/service.yaml
+                        
+                        # Wait for the rollout to finish successfully
+                        kubectl rollout status deployment/flask-cicd-app
+                    """
+                }
             }
         }
     }
 
     post {
         success {
-            echo "✅ Pipeline succeeded. App live at http://localhost:${APP_PORT}"
+            echo "✅ Pipeline succeeded. App live at http://localhost:30080"
         }
         failure {
             echo "❌ Pipeline failed. Check logs above."
