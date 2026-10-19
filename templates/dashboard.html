@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>📊 Welcome, {{ current_user.username }}</h2>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card stat-card bg-primary text-white shadow border-0">
+            <div class="card-body">
+                <h6 class="text-uppercase small">Total Requests</h6>
+                <h2 class="mb-0">1,284</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card stat-card bg-success text-white shadow border-0">
+            <div class="card-body">
+                <h6 class="text-uppercase small">Active Users</h6>
+                <h2 class="mb-0">42</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card stat-card bg-info text-white shadow border-0">
+            <div class="card-body">
+                <h6 class="text-uppercase small">Uptime</h6>
+                <h2 class="mb-0">99.9%</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow border-0 mb-4">
+    <div class="card-body">
+        <h5 class="mb-3">📈 Weekly Activity (click legend to toggle)</h5>
+        <canvas id="activityChart" height="100"></canvas>
+    </div>
+</div>
+
+<div class="card shadow border-0">
+    <div class="card-body">
+        <h5 class="mb-3">🍩 Traffic Sources</h5>
+        <div class="row">
+            <div class="col-md-6"><canvas id="pieChart"></canvas></div>
+            <div class="col-md-6 d-flex align-items-center">
+                <p class="text-muted">Interactive demo data for your CI/CD pipeline dashboard.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const ctx1 = document.getElementById('activityChart');
+new Chart(ctx1, {
+    type: 'line',
+    data: {
+        labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+        datasets: [
+            { label: 'Logins', data: [12,19,14,22,30,18,9], borderColor: '#0d6efd', backgroundColor: 'rgba(13,110,253,0.15)', tension: 0.4, fill: true },
+            { label: 'Signups', data: [3,5,4,8,11,6,2], borderColor: '#198754', backgroundColor: 'rgba(25,135,84,0.15)', tension: 0.4, fill: true }
+        ]
+    },
+    options: { responsive: true, plugins: { legend: { position: 'top' } } }
+});
+
+const ctx2 = document.getElementById('pieChart');
+new Chart(ctx2, {
+    type: 'doughnut',
+    data: {
+        labels: ['Direct','Social','Search','Referral'],
+        datasets: [{ data: [45,25,20,10], backgroundColor: ['#0d6efd','#dc3545','#ffc107','#6c757d'] }]
+    },
+    options: { responsive: true }
+});
+</script>
+{% endblock %}
