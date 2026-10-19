@@ -105,6 +105,7 @@ graph TD
 ## 🚦 Quick Start Guide
 
 ### 1️⃣ Prerequisites
+
 Ensure you have the following installed:
 *   [Docker Desktop](https://www.docker.com/products/docker-desktop/) (Enable Kubernetes in settings)
 *   [Git](https://git-scm.com/)
@@ -119,12 +120,14 @@ docker compose up -d --build
 > Access Jenkins at **`http://localhost:8080`** *(Get initial password via `docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword`)*
 
 ### 3️⃣ Configure the Pipeline
+
 1. Create a new **Pipeline** job in Jenkins.
 2. Point it to your GitHub repository.
 3. Set the script path to `Jenkinsfile`.
 4. Add a **Secret File** credential named `kubeconfig` (upload your local `~/.kube/config` file).
 
 ### 4️⃣ Deploy & Access
+
 Push any change to GitHub. Jenkins will automatically build and deploy.
 
 ```bash
