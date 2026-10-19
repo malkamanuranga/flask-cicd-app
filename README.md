@@ -1,4 +1,3 @@
-```markdown
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d6efd,100:326ce5&height=200&section=header&text=Flask%20CI/CD%20Pipeline&fontSize=50&fontAlignY=35&desc=End-to-End%20DevOps%20Automation%20%7C%20Zero%20Cloud%20Costs&descAlignY=55&descSize=20&fontColor=ffffff" width="100%" />
 
 <div align="center">
@@ -176,4 +175,3 @@ flask-cicd-app/
 ---
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:326ce5,100:0d6efd&height=120&section=footer" width="100%" />
-```
