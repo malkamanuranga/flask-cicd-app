@@ -28,7 +28,7 @@ pipeline {
                 sh """
                     docker run -d --name test-${CONTAINER_NAME}-${BUILD_NUMBER} -p 5055:5000 ${IMAGE_NAME}:${BUILD_NUMBER}
                     sleep 5
-                    curl -f http://localhost:5055/login || (docker logs test-${CONTAINER_NAME}-${BUILD_NUMBER} && exit 1)
+                    curl -f http://host.docker.internal:5055/login || (docker logs test-${CONTAINER_NAME}-${BUILD_NUMBER} && exit 1)
                     docker stop test-${CONTAINER_NAME}-${BUILD_NUMBER}
                     docker rm test-${CONTAINER_NAME}-${BUILD_NUMBER}
                 """
