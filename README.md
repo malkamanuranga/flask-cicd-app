@@ -1,18 +1,13 @@
-👇 Copy everything below this line and replace your current README.md 👇
-markdown
-<!-- Dynamic Wave Header -->
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d6efd,100:326ce5&height=200&section=header&text=Flask%20CI/CD%20Pipeline&fontSize=50&fontAlignY=35&desc=End-to-End%20DevOps%20Automation%20%7C%20Zero%20Cloud%20Costs&descAlignY=55&descSize=20&fontColor=ffffff" width="100%" />
 
 <div align="center">
 
-<!-- Animated Typing Header -->
 <a href="https://git.io/typing-svg">
   <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=24&pause=1000&color=0D6EFD&center=true&vCenter=true&width=600&lines=Welcome+to+the+Full+DevOps+Lifecycle;Automated+Testing+%2B+Docker+Builds;Kubernetes+Deployments;100%25+Local+Machine+Setup" alt="Typing SVG" />
 </a>
 
 <br><br>
 
-<!-- Status Badges -->
 [![Jenkins](https://img.shields.io/badge/Jenkins-CI/CD-D24939?style=for-the-badge&logo=jenkins&logoColor=white)](https://www.jenkins.io/)
 [![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
 [![Kubernetes](https://img.shields.io/badge/Kubernetes-Orchestrated-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)](https://kubernetes.io/)
@@ -87,26 +82,22 @@ markdown
 ## 🏗️ System Architecture
 
 ```mermaid
-sequenceDiagram
-    autonumber
-    actor Dev as 👨‍💻 Developer
-    participant GH as 🐙 GitHub
-    participant J as 🤖 Jenkins
-    participant D as 🐳 Docker
-    participant K as ☸️ Kubernetes
+graph TD
+    A["👨‍💻 Developer Push"] -->|git push| B("🐙 GitHub Repository")
+    B -->|Poll SCM every 60s| C{"🤖 Jenkins Pipeline"}
+    C -->|1. Checkout Code| D["🐳 Docker Build"]
+    D -->|2. Build Image| E["🧪 Smoke Test"]
+    E -->|3. curl /login| F{"Pass?"}
+    F -->|Yes| G["☸️ Kubernetes Deploy"]
+    F -->|No| H["❌ Build Fails & Alerts"]
+    G -->|Rolling Update| I(("🚀 App Live on Port 30080"))
     
-    Dev->>GH: git push origin main
-    GH-->>J: Webhook / Poll SCM (Trigger)
-    J->>GH: Checkout Code
-    J->>D: docker build -t app:${BUILD_NUMBER}
-    J->>D: docker run -p 5055:5000 (Smoke Test)
-    alt Test Passed
-        J->>K: kubectl apply -f k8s/deployment.yaml
-        K->>K: Rolling Update (2 Replicas)
-        K-->>Dev: ✅ App Live on Port 30080
-    else Test Failed
-        J-->>Dev: ❌ Pipeline Failed
-    end
+    style A fill:#0d6efd,color:#fff
+    style B fill:#24292e,color:#fff
+    style C fill:#d24939,color:#fff
+    style G fill:#326ce5,color:#fff
+    style I fill:#198754,color:#fff
+
 🚦 Quick Start Guide
 1️⃣ Prerequisites
 Ensure you have the following installed:
@@ -147,26 +138,28 @@ Username: admin
 Password: admin123
 
 📸 Application Previews
-(Replace these links with actual screenshots of your app if you take them later!)
-
 🔐 Login Page	📊 Interactive Dashboard
+
 <img src="https://via.placeholder.com/400x250/0d6efd/ffffff?text=Beautiful+Login+Screen" alt="Login">	<img src="https://via.placeholder.com/400x250/198754/ffffff?text=Interactive+Charts" alt="Dashboard">
+
 🛡️ Admin Panel	📝 Sign Up Page
 <img src="https://via.placeholder.com/400x250/dc3545/ffffff?text=User+Management" alt="Admin">	<img src="https://via.placeholder.com/400x250/ffc107/ffffff?text=Secure+Sign+Up" alt="Signup">
 📂 Project Structure
 text
 flask-cicd-app/
-├── 📁 .github/              # GitHub configurations
-├── 📁 jenkins-setup/        # Custom Jenkins Docker setup (with Docker CLI & Kubectl)
+├── 📁 jenkins-setup/        # Custom Jenkins Docker setup
 ├── 📁 k8s/                  # Kubernetes Manifests
-│   ├── deployment.yaml      # Pod definitions (2 replicas, rolling update)
-│   └── service.yaml         # NodePort service (Exposes port 30080)
+│   ├── deployment.yaml      # Pod definitions
+│   └── service.yaml         # NodePort service
 ├── 📁 static/               # CSS & JavaScript files
-├── 📁 templates/            # HTML Jinja2 templates (Login, Dashboard, Admin)
+├── 📁 templates/            # HTML templates
 ├── 🐍 app.py                # Main Flask Application
-├── 🐳 Dockerfile            # App Container definition
+├── 🐳 Dockerfile            # App Container
 ├── 🐳 docker-compose.yml    # Local runtime setup
-├── ⚙️ Jenkinsfile           # The CI/CD Pipeline as Code
+├── ⚙️ Jenkinsfile           # CI/CD Pipeline
 ├── 📄 requirements.txt      # Python dependencies
 └── 📖 README.md             # You are here!
-<!-- Dynamic Wave Footer --><img src="https://capsule-render.vercel.app/api?type=waving&color=0:326ce5,100:0d6efd&height=120&section=footer" width="100%" /> ```
+
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:326ce5,100:0d6efd&height=120&section=footer" width="100%" /> ```
+
