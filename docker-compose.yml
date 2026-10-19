@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    image: flask-cicd-app:latest
+    container_name: flask-cicd-app
+    ports:
+      - "5000:5000"
+    environment:
+      - SECRET_KEY=local-dev-secret
+    restart: unless-stopped
