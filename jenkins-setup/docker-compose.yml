@@ -1,0 +1,15 @@
+services:
+  jenkins:
+    image: jenkins/jenkins:lts-jdk17
+    container_name: jenkins
+    user: root
+    ports:
+      - "8080:8080"     # Jenkins Web UI
+      - "50000:50000"   # Jenkins agents
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock   # lets Jenkins use host Docker
+    restart: unless-stopped
+
+volumes:
+  jenkins_home:
