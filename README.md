@@ -1,3 +1,4 @@
+```markdown
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d6efd,100:326ce5&height=200&section=header&text=Flask%20CI/CD%20Pipeline&fontSize=50&fontAlignY=35&desc=End-to-End%20DevOps%20Automation%20%7C%20Zero%20Cloud%20Costs&descAlignY=55&descSize=20&fontColor=ffffff" width="100%" />
 
 <div align="center">
@@ -97,55 +98,63 @@ graph TD
     style C fill:#d24939,color:#fff
     style G fill:#326ce5,color:#fff
     style I fill:#198754,color:#fff
+```
 
-🚦 Quick Start Guide
-1️⃣ Prerequisites
+---
+
+## 🚦 Quick Start Guide
+
+### 1️⃣ Prerequisites
 Ensure you have the following installed:
+*   [Docker Desktop](https://www.docker.com/products/docker-desktop/) (Enable Kubernetes in settings)
+*   [Git](https://git-scm.com/)
+*   [Kubectl](https://kubernetes.io/docs/tasks/tools/)
 
-Docker Desktop (Enable Kubernetes in settings)
+### 2️⃣ Boot the Jenkins Server
 
-Git
-
-Kubectl
-
-2️⃣ Boot the Jenkins Server
-bash
+```bash
 cd jenkins-setup
 docker compose up -d --build
-Access Jenkins at http://localhost:8080 (Get initial password via docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword)
+```
+> Access Jenkins at **`http://localhost:8080`** *(Get initial password via `docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword`)*
 
-3️⃣ Configure the Pipeline
-Create a new Pipeline job in Jenkins.
+### 3️⃣ Configure the Pipeline
+1. Create a new **Pipeline** job in Jenkins.
+2. Point it to your GitHub repository.
+3. Set the script path to `Jenkinsfile`.
+4. Add a **Secret File** credential named `kubeconfig` (upload your local `~/.kube/config` file).
 
-Point it to your GitHub repository.
-
-Set the script path to Jenkinsfile.
-
-Add a Secret File credential named kubeconfig (upload your local ~/.kube/config file).
-
-4️⃣ Deploy & Access
+### 4️⃣ Deploy & Access
 Push any change to GitHub. Jenkins will automatically build and deploy.
 
-bash
+```bash
 # Watch the pods spin up!
 kubectl get pods -w
-🎉 Access the live application at: http://localhost:30080
+```
 
-Default Admin Credentials:
+🎉 **Access the live application at:** `http://localhost:30080`
 
-Username: admin
+**Default Admin Credentials:**
+*   **Username:** `admin`
+*   **Password:** `admin123`
 
-Password: admin123
+---
 
-📸 Application Previews
-🔐 Login Page	📊 Interactive Dashboard
+## 📸 Application Previews
 
-<img src="https://via.placeholder.com/400x250/0d6efd/ffffff?text=Beautiful+Login+Screen" alt="Login">	<img src="https://via.placeholder.com/400x250/198754/ffffff?text=Interactive+Charts" alt="Dashboard">
+| 🔐 Login Page | 📊 Interactive Dashboard |
+| :---: | :---: |
+| <img src="https://via.placeholder.com/400x250/0d6efd/ffffff?text=Beautiful+Login+Screen" alt="Login"> | <img src="https://via.placeholder.com/400x250/198754/ffffff?text=Interactive+Charts" alt="Dashboard"> |
 
-🛡️ Admin Panel	📝 Sign Up Page
-<img src="https://via.placeholder.com/400x250/dc3545/ffffff?text=User+Management" alt="Admin">	<img src="https://via.placeholder.com/400x250/ffc107/ffffff?text=Secure+Sign+Up" alt="Signup">
-📂 Project Structure
-text
+| 🛡️ Admin Panel | 📝 Sign Up Page |
+| :---: | :---: |
+| <img src="https://via.placeholder.com/400x250/dc3545/ffffff?text=User+Management" alt="Admin"> | <img src="https://via.placeholder.com/400x250/ffc107/ffffff?text=Secure+Sign+Up" alt="Signup"> |
+
+---
+
+## 📂 Project Structure
+
+```text
 flask-cicd-app/
 ├── 📁 jenkins-setup/        # Custom Jenkins Docker setup
 ├── 📁 k8s/                  # Kubernetes Manifests
@@ -159,7 +168,9 @@ flask-cicd-app/
 ├── ⚙️ Jenkinsfile           # CI/CD Pipeline
 ├── 📄 requirements.txt      # Python dependencies
 └── 📖 README.md             # You are here!
+```
 
+---
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:326ce5,100:0d6efd&height=120&section=footer" width="100%" /> ```
-
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:326ce5,100:0d6efd&height=120&section=footer" width="100%" />
+```
