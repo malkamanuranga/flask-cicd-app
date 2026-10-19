@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Admin{% endblock %}
+{% block content %}
+<h2 class="mb-4">🛡️ Admin Panel</h2>
+
+<div class="card shadow border-0">
+    <div class="card-body">
+        <h5 class="mb-3">All Registered Users ({{ users|length }})</h5>
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in users %}
+                <tr>
+                    <td>{{ u[0] }}</td>
+                    <td><strong>{{ u[1] }}</strong></td>
+                    <td>
+                        {% if u[2] %}
+                            <span class="badge bg-danger">ADMIN</span>
+                        {% else %}
+                            <span class="badge bg-secondary">USER</span>
+                        {% endif %}
+                    </td>
+                    <td><span class="badge bg-success">Active</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
