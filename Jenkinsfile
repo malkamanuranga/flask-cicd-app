@@ -26,9 +26,15 @@ pipeline {
             steps {
                 echo '🧪 Quick smoke test...'
                 sh """
+                    # CLEANUP: Force remove any old test container using this name
+                    docker rm -f test-${CONTAINER_NAME}-${BUILD_NUMBER} || true
+                    
+                    # Run the test container
                     docker run -d --name test-${CONTAINER_NAME}-${BUILD_NUMBER} -p 5055:5000 ${IMAGE_NAME}:${BUILD_NUMBER}
                     sleep 5
                     curl -f http://host.docker.internal:5055/login || (docker logs test-${CONTAINER_NAME}-${BUILD_NUMBER} && exit 1)
+                    
+                    # CLEANUP: Stop and remove after successful test
                     docker stop test-${CONTAINER_NAME}-${BUILD_NUMBER}
                     docker rm test-${CONTAINER_NAME}-${BUILD_NUMBER}
                 """
